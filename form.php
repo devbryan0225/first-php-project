@@ -52,6 +52,23 @@
 		htmlspecialchars($comments, ENT_QUOTES),
 		htmlspecialchars($tc, ENT_QUOTES));
 		//echo htmlspecialchars($_POST['searchterm'], ENT_QUOTES);
+
+		$db = new mysqli('localhost','phpuser','test1234','php');
+		if(isset($_POST['name']) && isset($_POST['gender']) && isset($_POST['color'])) {
+			$sql = sprintf(
+				"INSERT INTO users (name, gender, color) 
+				VALUES ('%s','%s', '%s')" ,
+				$db->real_escape_string($name),
+				$db->real_escape_string($gender),
+				$db->real_escape_string($color),
+			);
+			$db->query($sql);
+			printf('<br>details added');
+		}
+		else {
+			printf('<br>blank fields');
+		}
+		$db->close();
 	}
 ?>
 
